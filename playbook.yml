@@ -13,6 +13,19 @@
           - python3.11-pip
         state: present
 
+    - name: Ensure firewalld is installed and running
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Open Flask port in firewalld
+      ansible.builtin.firewalld:
+        port: "{{ flask_port }}/tcp"
+        permanent: true
+        state: enabled
+        immediate: true
+
     - name: Create base directory
       ansible.builtin.file:
         path: /opt/vieve
@@ -27,20 +40,20 @@
 
     - name: Copy Flask app.py
       ansible.builtin.copy:
-        src: app/app.py
+        src: roles/vieve/files/app/app.py
         dest: /opt/vieve/app.py
         mode: '0755'
 
     - name: Copy static assets
       ansible.builtin.copy:
-        src: app/static/
+        src: roles/vieve/files/app/static/
         dest: /opt/vieve/static/
         mode: '0755'
         remote_src: no
 
     - name: Copy HTML templates
       ansible.builtin.copy:
-        src: app/templates/
+        src: roles/vieve/files/app/templates/
         dest: /opt/vieve/templates/
         mode: '0755'
         remote_src: no
