@@ -1,7 +1,70 @@
+---
 - name: Deploy Vieve Flask App
-  hosts: rocky.alyniar-chris.ddns.net
+  hosts: all
   become: true
-  gather_facts: false
+  vars:
+    flask_port: 10992
 
-  roles:
-    - role: vieve
+  tasks:
+    - name: Ensure Python 3.11 and pip are installed
+      ansible.builtin.package:
+        name:
+          - python3.11
+          - python3.11-pip
+        state: present
+
+    - name: Ensure firewalld is installed and running
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Open Flask port in firewalld
+      ansible.builtin.firewalld:
+        port: "{{ flask_port }}/tcp"
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: Create base directory
+      ansible.builtin.file:
+        path: /opt/vieve
+        state: directory
+        mode: '0755'
+
+    - name: Create static/uploads directory
+      ansible.builtin.file:
+        path: /opt/vieve/static/uploads
+        state: directory
+        mode: '0755'
+
+    - name: Copy Flask app.py
+      ansible.builtin.copy:
+        src: app/app.py
+        dest: /opt/vieve/app.py
+        mode: '0755'
+
+    - name: Copy static assets
+      ansible.builtin.copy:
+        src: app/static/
+        dest: /opt/vieve/static/
+        mode: '0755'
+        remote_src: no
+
+    - name: Copy HTML templates
+      ansible.builtin.copy:
+        src: app/templates/
+        dest: /opt/vieve/templates/
+        mode: '0755'
+        remote_src: no
+
+    - name: Stop any running Flask app
+      ansible.builtin.shell: pkill -f app.py || true
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+
+    - name: Launch Flask app with Python 3.11
+      ansible.builtin.shell: nohup /usr/bin/python3.11 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
+      args:
+        executable: /bin/bash
