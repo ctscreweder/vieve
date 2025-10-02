@@ -1,6 +1,6 @@
 - name: Deploy Vieve
-  hosts: all
+  hosts: rocky
   become: true
   tasks:
-    - name: Ping target
+    - name: Ping rocky
       ansible.builtin.ping:
