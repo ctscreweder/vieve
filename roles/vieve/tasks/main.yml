@@ -1,4 +1,4 @@
-- name: Ensure python3.11 and pip are installed
+- name: Ensure Python 3.11 and pip are installed
   become: true
   ansible.builtin.package:
     name:
@@ -17,30 +17,33 @@
   become: true
   ansible.builtin.pip:
     name: flask
-    executable: python3.11
-    extra_args: -m pip
+    executable: /usr/bin/python3.11
+    extra_args:
+      - -m
+      - pip
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
-    src: app/app.py
+    src: app.py
     dest: /opt/vieve/app.py
     mode: '0755'
 
 - name: Copy static assets
   ansible.builtin.copy:
-    src: app/static
+    src: static
     dest: /opt/vieve/static
     mode: '0755'
     remote_src: no
 
 - name: Copy HTML templates
   ansible.builtin.copy:
-    src: app/templates
+    src: templates
     dest: /opt/vieve/templates
     mode: '0755'
     remote_src: no
 
 - name: Launch Flask app with Python 3.11
+  become: true
   ansible.builtin.shell: |
     nohup /usr/bin/python3.11 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
   args:
