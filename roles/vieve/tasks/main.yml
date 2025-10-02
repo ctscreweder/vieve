@@ -28,15 +28,15 @@
 
 - name: Copy static assets
   ansible.builtin.copy:
-    src: app/static
-    dest: /opt/vieve/static
+    src: app/static/
+    dest: /opt/vieve/static/
     mode: '0755'
     remote_src: no
 
 - name: Copy HTML templates
   ansible.builtin.copy:
-    src: app/templates
-    dest: /opt/vieve/templates
+    src: app/templates/
+    dest: /opt/vieve/templates/
     mode: '0755'
     remote_src: no
 
@@ -52,13 +52,3 @@
   ansible.builtin.shell: nohup /usr/bin/python3.11 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
   args:
     executable: /bin/bash
-
-- name: Read Flask log for diagnostics
-  become: true
-  ansible.builtin.shell: tail -n 50 /opt/vieve/flask.log
-  register: flask_log
-  changed_when: false
-
-- name: Show Flask log output
-  ansible.builtin.debug:
-    var: flask_log.stdout_lines
