@@ -13,14 +13,11 @@
     state: directory
     mode: '0755'
 
-- name: Install Flask using Python 3.11
+- name: Install Flask manually via shell
   become: true
-  ansible.builtin.pip:
-    name: flask
-    executable: /usr/bin/python3.11
-    extra_args:
-      - -m
-      - pip
+  ansible.builtin.shell: /usr/bin/python3.11 -m pip install flask
+  args:
+    executable: /bin/bash
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
