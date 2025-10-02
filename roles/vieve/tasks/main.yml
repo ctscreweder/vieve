@@ -13,11 +13,12 @@
     state: directory
     mode: '0755'
 
-- name: Install Flask manually via shell
+- name: Create static/uploads directory
   become: true
-  ansible.builtin.shell: /usr/bin/python3.11 -m pip install flask
-  args:
-    executable: /bin/bash
+  ansible.builtin.file:
+    path: /opt/vieve/static/uploads
+    state: directory
+    mode: '0755'
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
@@ -42,6 +43,7 @@
 - name: Launch Flask app with Python 3.11
   become: true
   ansible.builtin.shell: |
+    pkill -f app.py || true
     nohup /usr/bin/python3.11 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
   args:
     executable: /bin/bash
