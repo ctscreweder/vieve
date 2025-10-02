@@ -1,34 +1,22 @@
-- name: Install dependencies
-  apt:
-    name:
-      - python3-flask
-      - python3-pip
-      - sqlite3
-    state: present
-    update_cache: true
+- name: Ensure Flask is installed
+  ansible.builtin.pip:
+    name: flask
+    executable: pip3
 
-- name: Copy app files
-  copy:
-    src: app/
-    dest: /opt/vieve/
-    owner: www-data
-    group: www-data
+- name: Create target directory
+  ansible.builtin.file:
+    path: /opt/vieve
+    state: directory
     mode: '0755'
 
-- name: Open firewall port
-  ufw:
-    rule: allow
-    port: '10992'
-    proto: tcp
+- name: Copy Flask app
+  ansible.builtin.copy:
+    src: app/app.py
+    dest: /opt/vieve/app.py
+    mode: '0755'
 
-- name: Create systemd service
-  template:
-    src: vieve.service.j2
-    dest: /etc/systemd/system/vieve.service
-
-- name: Enable and start service
-  systemd:
-    name: vieve
-    enabled: true
-    state: restarted
-    daemon_reload: true
+- name: Launch Flask app in background
+  ansible.builtin.shell: |
+    nohup python3 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
+  args:
+    executable: /bin/bash
