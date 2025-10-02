@@ -13,19 +13,6 @@
           - python3.11-pip
         state: present
 
-    - name: Ensure firewalld is installed and running
-      ansible.builtin.service:
-        name: firewalld
-        state: started
-        enabled: true
-
-    - name: Open Flask port in firewalld
-      ansible.builtin.firewalld:
-        port: "{{ flask_port }}/tcp"
-        permanent: true
-        state: enabled
-        immediate: true
-
     - name: Create base directory
       ansible.builtin.file:
         path: /opt/vieve
