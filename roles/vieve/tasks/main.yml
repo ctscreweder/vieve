@@ -14,9 +14,11 @@
     mode: '0755'
 
 - name: Install Flask using Python 3.11
+  become: true
   ansible.builtin.pip:
     name: flask
-    executable: /usr/bin/python3.11 -m pip
+    executable: python3.11
+    extra_args: -m pip
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
