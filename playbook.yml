@@ -1,6 +1,9 @@
-- name: Deploy Vieve
+- name: AWX Diagnostic Test
   hosts: rocky.alyniar-chris.ddns.net
-  become: true
+  gather_facts: false
   tasks:
-    - name: Ping rocky
-      ansible.builtin.ping:
+    - name: Echo hostname
+      ansible.builtin.command: hostname
+
+    - name: Who am I
+      ansible.builtin.command: whoami
