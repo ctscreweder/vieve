@@ -1,3 +1,16 @@
-<h2>Stats</h2>
-<p>Total Photos Uploaded: {{ photo_count }}</p>
-<p>Total Button Presses: {{ event_count }}</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stats</title>
+  <style>
+    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    h1, h2 { margin-bottom: 20px; }
+    .stat { font-size: 24px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>Vieve Stats</h1>
+  <div class="stat">Photos uploaded: {{ photo_count }}</div>
+  <div class="stat">Button presses: {{ event_count }}</div>
+</body>
+</html>
