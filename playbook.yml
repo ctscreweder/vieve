@@ -1,5 +1,6 @@
-- name: Deploy Vieve Flask App
-  hosts: localhost
+- name: Deploy Vieve
+  hosts: all
   become: true
-  roles:
-    - vieve
+  tasks:
+    - name: Ping target
+      ansible.builtin.ping:
