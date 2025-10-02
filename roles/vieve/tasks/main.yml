@@ -9,13 +9,27 @@
     state: directory
     mode: '0755'
 
-- name: Copy Flask app
+- name: Copy Flask app.py
   ansible.builtin.copy:
     src: app/app.py
     dest: /opt/vieve/app.py
     mode: '0755'
 
-- name: Launch Flask app in background
+- name: Copy static assets
+  ansible.builtin.copy:
+    src: app/static
+    dest: /opt/vieve/static
+    mode: '0755'
+    remote_src: no
+
+- name: Copy HTML templates
+  ansible.builtin.copy:
+    src: app/templates
+    dest: /opt/vieve/templates
+    mode: '0755'
+    remote_src: no
+
+- name: Launch Flask app
   ansible.builtin.shell: |
     nohup python3 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
   args:
