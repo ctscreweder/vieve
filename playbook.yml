@@ -1,5 +1,5 @@
 - name: Deploy Vieve
-  hosts: rocky.alyniar-chris.ddns.net
+  hosts: rocky
   become: true
   tasks:
     - name: Ping rocky
