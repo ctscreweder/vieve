@@ -1,13 +1,34 @@
-<h2>Upload Photo</h2>
-<form method="POST" enctype="multipart/form-data">
-  <input type="file" name="photo">
-  <button type="submit">Upload</button>
-</form>
-<div class="grid">
-  {% for photo in photos %}
-    <div>
-      <img src="/static/uploads/{{ photo[0] }}">
-      <a href="/delete/{{ photo[0] }}"><button>Delete</button></a>
-    </div>
-  {% endfor %}
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Upload</title>
+  <style>
+    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; }
+    form { margin: 20px; }
+    input[type="file"], button { margin: 10px; padding: 10px; font-size: 16px; }
+    .gallery { display: grid; grid-template-columns: repeat(3, 600px); gap: 10px; justify-content: center; }
+    .photo { position: relative; }
+    img { width: 600px; height: auto; }
+    .delete { position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Upload a Photo</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="photo" required>
+    <button type="submit">Upload</button>
+  </form>
+
+  <h2>Recent Photos</h2>
+  <div class="gallery">
+    {% for photo in photos %}
+      <div class="photo">
+        <img src="/static/uploads/{{ photo[0] }}" alt="Photo">
+        <form method="GET" action="/delete/{{ photo[0] }}">
+          <button class="delete">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
