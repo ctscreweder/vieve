@@ -2,92 +2,33 @@
 <html>
 <head>
   <title>Calendar</title>
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #calendar {
-      max-width: 900px;
-      margin: 0 auto;
-      background-color: #1a1a1a;
-      border-radius: 8px;
-      padding: 10px;
-    }
-    .fc-toolbar-title,
-    .fc-col-header-cell-cushion,
-    .fc-daygrid-day-number {
-      color: white !important;
-    }
-    .fc-button {
-      background-color: #333 !important;
-      color: white !important;
-      border: none !important;
-    }
-    form {
-      text-align: center;
-      margin-top: 30px;
-    }
-    input, button {
-      margin: 5px;
-      padding: 8px;
-    }
-    ul {
-      max-width: 900px;
-      margin: 30px auto;
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 5px 0;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
-<body>
-  <h1>Calendar</h1>
+<body style="background:black; color:white;">
+  <h2>Event Calendar</h2>
+  <div id="calendar"></div>
 
-  <div id='calendar'></div>
-
-  <form method="POST" action="/calendar/add">
-    <input type="text" name="label" placeholder="Event label" required>
-    <input type="date" name="date" required>
-    <button type="submit">Add Event</button>
-  </form>
-
-  <h2>Event List</h2>
+  <h3>Event List</h3>
   <ul>
-    {% for label, timestamp in events %}
-      <li>{{ timestamp }} — {{ label }}</li>
+    {% for title, date in events %}
+      <li>{{ date }} — {{ title }}</li>
     {% endfor %}
   </ul>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        themeSystem: 'standard',
+        height: 'auto',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: ''
         },
-        events: '/events.json',
-        eventDidMount: function(info) {
-          const label = info.event.title.toLowerCase();
-          if (label.includes('had sex')) info.el.style.backgroundColor = 'red';
-          else if (label.includes('date night')) info.el.style.backgroundColor = 'blue';
-          else if (label.includes('other')) info.el.style.backgroundColor = 'yellow';
-          else info.el.style.backgroundColor = 'gray';
-        }
+        events: '/vieve/calendar/events'
       });
       calendar.render();
     });
