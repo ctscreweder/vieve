@@ -1,13 +1,22 @@
-- name: Ensure Flask is installed
-  ansible.builtin.pip:
-    name: flask
-    executable: pip3
+- name: Ensure python3.11 and pip are installed
+  become: true
+  ansible.builtin.package:
+    name:
+      - python3.11
+      - python3.11-pip
+    state: present
 
 - name: Create target directory
+  become: true
   ansible.builtin.file:
     path: /opt/vieve
     state: directory
     mode: '0755'
+
+- name: Install Flask using Python 3.11
+  ansible.builtin.pip:
+    name: flask
+    executable: /usr/bin/python3.11 -m pip
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
@@ -29,8 +38,8 @@
     mode: '0755'
     remote_src: no
 
-- name: Launch Flask app
+- name: Launch Flask app with Python 3.11
   ansible.builtin.shell: |
-    nohup python3 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
+    nohup /usr/bin/python3.11 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
   args:
     executable: /bin/bash
