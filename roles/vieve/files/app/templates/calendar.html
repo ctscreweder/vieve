@@ -1,6 +1,48 @@
-<h2>Calendar Events</h2>
-<ul>
-  {% for label, timestamp in events %}
-    <li>{{ timestamp }} — {{ label }}</li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calendar</title>
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #calendar { max-width: 900px; margin: 0 auto; }
+    form { margin-top: 30px; text-align: center; }
+    input, button { margin: 5px; padding: 8px; }
+    ul { margin-top: 30px; max-width: 900px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+  <h1>Calendar</h1>
+  <div id='calendar'></div>
+
+  <form method="POST" action="/calendar/add">
+    <input type="text" name="label" placeholder="Event label" required>
+    <input type="date" name="date" required>
+    <button type="submit">Add Event</button>
+  </form>
+
+  <h2>Event List</h2>
+  <ul>
+    {% for label, timestamp in events %}
+      <li>{{ timestamp }} — {{ label }}</li>
+    {% endfor %}
+  </ul>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: ''
+        },
+        events: '/events.json'
+      });
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
