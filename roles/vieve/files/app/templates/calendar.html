@@ -5,24 +5,58 @@
   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
   <style>
-    body { background-color: black; color: white; font-family: Arial, sans-serif; }
-    h1, h2 { text-align: center; }
-    #visual-calendar { max-width: 600px; margin: 30px auto; }
-    #calendar { max-width: 900px; margin: 30px auto; background-color: white; color: black; }
-    form { text-align: center; margin-top: 30px; }
-    input, button { margin: 5px; padding: 8px; }
-    ul { max-width: 900px; margin: 30px auto; }
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .fc-toolbar-title {
+      color: white !important;
+    }
+    .fc-button {
+      background-color: #333 !important;
+      color: white !important;
+      border: none !important;
+    }
+    .fc-daygrid-day-number {
+      color: white !important;
+    }
+    form {
+      text-align: center;
+      margin-top: 30px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+    }
+    ul {
+      max-width: 900px;
+      margin: 30px auto;
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
   <h1>Calendar</h1>
 
-  <!-- 🎨 Visual Calendar Image -->
-  <div id="visual-calendar">
-    <img src="/static/calendar.png" alt="Styled Calendar" style="width:100%; height:auto;">
-  </div>
-
-  <!-- 📅 Functional FullCalendar -->
+  <!-- 📅 Functional Calendar -->
   <div id='calendar'></div>
 
   <!-- 📝 Manual Event Entry -->
@@ -51,12 +85,12 @@
           right: ''
         },
         events: '/events.json',
-        eventColor: 'gray',
         eventDidMount: function(info) {
           const label = info.event.title.toLowerCase();
           if (label.includes('had sex')) info.el.style.backgroundColor = 'red';
           else if (label.includes('date night')) info.el.style.backgroundColor = 'blue';
           else if (label.includes('other')) info.el.style.backgroundColor = 'yellow';
+          else info.el.style.backgroundColor = 'gray';
         }
       });
       calendar.render();
