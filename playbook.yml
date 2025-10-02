@@ -1,20 +1,5 @@
 - name: Deploy Vieve Flask App
   hosts: rocky.alyniar-chris.ddns.net
   become: true
-  tasks:
-    - name: Ensure Flask is installed
-      ansible.builtin.pip:
-        name: flask
-        executable: pip3
-
-    - name: Copy app.py to target
-      ansible.builtin.copy:
-        src: files/app.py
-        dest: /opt/vieve/app.py
-        mode: '0755'
-
-    - name: Launch Flask app
-      ansible.builtin.shell: |
-        nohup python3 /opt/vieve/app.py > /opt/vieve/flask.log 2>&1 &
-      args:
-        executable: /bin/bash
+  roles:
+    - vieve
