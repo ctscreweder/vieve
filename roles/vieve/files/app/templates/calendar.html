@@ -6,23 +6,34 @@
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
   <style>
     body { background-color: black; color: white; font-family: Arial, sans-serif; }
-    #calendar { max-width: 900px; margin: 20px auto; background-color: white; color: black; }
+    h1, h2 { text-align: center; }
+    #visual-calendar { max-width: 600px; margin: 30px auto; }
+    #calendar { max-width: 900px; margin: 30px auto; background-color: white; color: black; }
     form { text-align: center; margin-top: 30px; }
     input, button { margin: 5px; padding: 8px; }
     ul { max-width: 900px; margin: 30px auto; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Calendar</h1>
+  <h1>Calendar</h1>
+
+  <!-- 🎨 Visual Calendar Image -->
+  <div id="visual-calendar">
+    <img src="/static/calendar.png" alt="Styled Calendar" style="width:100%; height:auto;">
+  </div>
+
+  <!-- 📅 Functional FullCalendar -->
   <div id='calendar'></div>
 
+  <!-- 📝 Manual Event Entry -->
   <form method="POST" action="/calendar/add">
     <input type="text" name="label" placeholder="Event label" required>
     <input type="date" name="date" required>
     <button type="submit">Add Event</button>
   </form>
 
-  <h2 style="text-align:center;">Event List</h2>
+  <!-- 📃 Running Event List -->
+  <h2>Event List</h2>
   <ul>
     {% for label, timestamp in events %}
       <li>{{ timestamp }} — {{ label }}</li>
