@@ -60,7 +60,10 @@ def delete(filename):
     c.execute("DELETE FROM photos WHERE filename=?", (filename,))
     conn.commit()
     conn.close()
-    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    try:
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    except FileNotFoundError:
+        pass
     return redirect('/upload')
 
 @app.route('/calendar')
