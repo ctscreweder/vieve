@@ -23,16 +23,15 @@
       border-radius: 8px;
       padding: 10px;
     }
-    .fc-toolbar-title {
+    .fc-toolbar-title,
+    .fc-col-header-cell-cushion,
+    .fc-daygrid-day-number {
       color: white !important;
     }
     .fc-button {
       background-color: #333 !important;
       color: white !important;
       border: none !important;
-    }
-    .fc-daygrid-day-number {
-      color: white !important;
     }
     form {
       text-align: center;
@@ -56,17 +55,14 @@
 <body>
   <h1>Calendar</h1>
 
-  <!-- 📅 Functional Calendar -->
   <div id='calendar'></div>
 
-  <!-- 📝 Manual Event Entry -->
   <form method="POST" action="/calendar/add">
     <input type="text" name="label" placeholder="Event label" required>
     <input type="date" name="date" required>
     <button type="submit">Add Event</button>
   </form>
 
-  <!-- 📃 Running Event List -->
   <h2>Event List</h2>
   <ul>
     {% for label, timestamp in events %}
