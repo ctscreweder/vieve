@@ -1,0 +1,34 @@
+- name: Install dependencies
+  apt:
+    name:
+      - python3-flask
+      - python3-pip
+      - sqlite3
+    state: present
+    update_cache: true
+
+- name: Copy app files
+  copy:
+    src: app/
+    dest: /opt/vieve/
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Open firewall port
+  ufw:
+    rule: allow
+    port: '10992'
+    proto: tcp
+
+- name: Create systemd service
+  template:
+    src: vieve.service.j2
+    dest: /etc/systemd/system/vieve.service
+
+- name: Enable and start service
+  systemd:
+    name: vieve
+    enabled: true
+    state: restarted
+    daemon_reload: true

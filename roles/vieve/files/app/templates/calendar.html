@@ -1,0 +1,6 @@
+<h2>Calendar Events</h2>
+<ul>
+  {% for label, timestamp in events %}
+    <li>{{ timestamp }} — {{ label }}</li>
+  {% endfor %}
+</ul>

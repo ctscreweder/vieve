@@ -1,0 +1,12 @@
+[Unit]
+Description=Vieve Flask App
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/opt/vieve
+ExecStart=/usr/bin/python3 /opt/vieve/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

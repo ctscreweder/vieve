@@ -1,0 +1,13 @@
+<h2>Upload Photo</h2>
+<form method="POST" enctype="multipart/form-data">
+  <input type="file" name="photo">
+  <button type="submit">Upload</button>
+</form>
+<div class="grid">
+  {% for photo in photos %}
+    <div>
+      <img src="/static/uploads/{{ photo[0] }}">
+      <a href="/delete/{{ photo[0] }}"><button>Delete</button></a>
+    </div>
+  {% endfor %}
+</div>
