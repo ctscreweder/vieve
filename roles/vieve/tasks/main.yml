@@ -21,20 +21,20 @@
 
 - name: Copy Flask app.py
   ansible.builtin.copy:
-    src: app.py
+    src: app/app.py
     dest: /opt/vieve/app.py
     mode: '0755'
 
 - name: Copy static assets
   ansible.builtin.copy:
-    src: static
+    src: app/static
     dest: /opt/vieve/static
     mode: '0755'
     remote_src: no
 
 - name: Copy HTML templates
   ansible.builtin.copy:
-    src: templates
+    src: app/templates
     dest: /opt/vieve/templates
     mode: '0755'
     remote_src: no
