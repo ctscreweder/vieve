@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, send_from_directory, jsonify
 import sqlite3, os
 from datetime import datetime
+from pytz import timezone
 from werkzeug.utils import secure_filename
 
 app = Flask(
@@ -14,6 +15,9 @@ DB_PATH = '/opt/vieve/database.db'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def local_timestamp():
+    return datetime.now(timezone('America/Denver')).strftime('%Y-%m-%d %H:%M:%S')
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -46,7 +50,7 @@ def upload():
             filename = secure_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
-            c.execute("INSERT INTO photos (filename) VALUES (?)", (filename,))
+            c.execute("INSERT INTO photos (filename, timestamp) VALUES (?, ?)", (filename, local_timestamp()))
             conn.commit()
     c.execute("SELECT filename FROM photos ORDER BY timestamp DESC LIMIT 12")
     photos = c.fetchall()
@@ -104,9 +108,10 @@ def buttons():
     if request.method == 'POST':
         label = request.form['label']
         ip = request.remote_addr
+        timestamp = local_timestamp()
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
-        c.execute("INSERT INTO events (label, ip) VALUES (?, ?)", (label, ip))
+        c.execute("INSERT INTO events (label, ip, timestamp) VALUES (?, ?, ?)", (label, ip, timestamp))
         conn.commit()
         conn.close()
         return redirect('/calendar')
