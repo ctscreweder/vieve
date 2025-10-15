@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vieve Home</title>
+  <title>Photo Upload</title>
   <link rel="stylesheet" href="/static/style.css">
-  <style>body { text-align: center; padding-top: 50px; }</style>
+  <style>
+    .gallery { display: grid; grid-template-columns: repeat(3, 600px); gap: 10px; justify-content: center; }
+    .photo { position: relative; }
+    .delete { position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Vieve</h1>
-  <button onclick="location.href='/upload'">Photo Upload</button>
-  <button onclick="location.href='/calendar'">Calendar</button>
-  <button onclick="location.href='/buttons'">Button Tracker</button>
-  <button onclick="location.href='/stats'">Stats</button>
+  <h1>Upload a Photo</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="photo" required>
+    <button type="submit">Upload</button>
+  </form>
+  <h2>Recent Photos</h2>
+  <div class="gallery">
+    {% for photo in photos %}
+      <div class="photo">
+        <img src="/static/uploads/{{ photo[0] }}" alt="Photo">
+        <form method="GET" action="/delete/{{ photo[0] }}">
+          <button class="delete">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+  <div style="text-align:center; margin-top:40px;">
+    <form action="/" method="get"><button>Return Home</button></form>
+  </div>
 </body>
 </html>
