@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, jsonify
 import sqlite3, os
 from datetime import datetime
 from pytz import timezone
@@ -96,8 +96,7 @@ def events_json():
     c.execute("SELECT label, timestamp FROM events")
     rows = c.fetchall()
     conn.close()
-    events = [{"title": label, "start": timestamp} for label, timestamp in rows]
-    return jsonify(events)
+    return jsonify([{"title": label, "start": timestamp} for label, timestamp in rows])
 
 @app.route('/buttons', methods=['GET', 'POST'])
 def buttons():
