@@ -1,45 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vieve Stats</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <title>Stats</title>
   <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 50px;
-    }
-    h1 {
-      margin-bottom: 30px;
-    }
-    .stat {
-      font-size: 24px;
-      margin: 15px 0;
-    }
-    .return-home {
-      margin-top: 40px;
-    }
-    .return-home button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    h1, h2 { margin-bottom: 20px; }
+    .stat { font-size: 24px; margin: 10px 0; }
   </style>
 </head>
 <body>
   <h1>Vieve Stats</h1>
   <div class="stat">Photos uploaded: {{ photo_count }}</div>
   <div class="stat">Button presses: {{ event_count }}</div>
-
-  <div class="return-home">
-    <form action="/" method="get">
-      <button>Return Home</button>
-    </form>
-  </div>
+<div style="text-align:center; margin-top:40px;">
+  <form action="/" method="get">
+    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
+      Return Home
+    </button>
+  </form>
+</div>
 </body>
 </html>
