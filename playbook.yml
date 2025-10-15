@@ -46,7 +46,7 @@
         remote_src: no
 
     - name: Stop any running Flask app
-      ansible.builtin.shell: pkill -f app.py || true
+      ansible.builtin.shell: pkill -f '/opt/vieve/app.py'
       args:
         executable: /bin/bash
       ignore_errors: true
