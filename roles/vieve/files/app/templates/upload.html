@@ -3,70 +3,27 @@
 <head>
   <title>Upload a Photo</title>
   <link rel="stylesheet" href="/static/style.css">
-  <style>
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-    .photo {
-      position: relative;
-    }
-    .photo img {
-      width: 100%;
-      height: auto;
-      border: 2px solid #444;
-    }
-    .delete {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: red;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .upload-form {
-      margin-top: 30px;
-    }
-    .return-home {
-      margin-top: 40px;
-      text-align: center;
-    }
-    .return-home button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
   <h1>Upload a Photo</h1>
-
-  <form method="POST" enctype="multipart/form-data" class="upload-form">
+  <form method="POST" enctype="multipart/form-data">
     <input type="file" name="photo" required>
     <button type="submit">Upload</button>
   </form>
 
   <h2>Recent Photos</h2>
-  <div class="gallery">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
     {% for photo in photos %}
-      <div class="photo">
-        <img src="/static/uploads/{{ photo[0] }}" alt="Photo">
+      <div>
+        <img src="/static/uploads/{{ photo[0] }}" alt="Photo" width="300">
         <form method="GET" action="/delete/{{ photo[0] }}">
-          <button class="delete">Delete</button>
+          <button style="background-color: red;">Delete</button>
         </form>
       </div>
     {% endfor %}
   </div>
 
-  <div class="return-home">
+  <div style="text-align:center; margin-top:40px;">
     <form action="/" method="get">
       <button>Return Home</button>
     </form>
