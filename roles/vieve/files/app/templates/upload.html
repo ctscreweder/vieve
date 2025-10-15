@@ -15,7 +15,6 @@
     <input type="file" name="photo" required>
     <button type="submit">Upload</button>
   </form>
-
   <h2>Recent Photos</h2>
   <div class="gallery">
     {% for photo in photos %}
@@ -27,11 +26,8 @@
       </div>
     {% endfor %}
   </div>
-
   <div style="text-align:center; margin-top:40px;">
-    <form action="/" method="get">
-      <button>Return Home</button>
-    </form>
+    <form action="/" method="get"><button>Return Home</button></form>
   </div>
 </body>
 </html>
