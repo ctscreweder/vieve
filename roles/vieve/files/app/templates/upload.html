@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Upload a Photo</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <title>Photo Upload</title>
+  <style>
+    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; }
+    form { margin: 20px; }
+    input[type="file"], button { margin: 10px; padding: 10px; font-size: 16px; }
+    .gallery { display: grid; grid-template-columns: repeat(3, 600px); gap: 10px; justify-content: center; }
+    .photo { position: relative; }
+    img { width: 600px; height: auto; }
+    .delete { position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+  </style>
 </head>
 <body>
   <h1>Upload a Photo</h1>
@@ -12,21 +20,22 @@
   </form>
 
   <h2>Recent Photos</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+  <div class="gallery">
     {% for photo in photos %}
-      <div>
-        <img src="/static/uploads/{{ photo[0] }}" alt="Photo" width="300">
+      <div class="photo">
+        <img src="/static/uploads/{{ photo[0] }}" alt="Photo">
         <form method="GET" action="/delete/{{ photo[0] }}">
-          <button style="background-color: red;">Delete</button>
+          <button class="delete">Delete</button>
         </form>
       </div>
     {% endfor %}
   </div>
-
-  <div style="text-align:center; margin-top:40px;">
-    <form action="/" method="get">
-      <button>Return Home</button>
-    </form>
-  </div>
+<div style="text-align:center; margin-top:40px;">
+  <form action="/" method="get">
+    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
+      Return Home
+    </button>
+  </form>
+</div>
 </body>
 </html>
