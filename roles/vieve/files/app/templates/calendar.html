@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Calendar</title>
+  <link rel="stylesheet" href="/static/style.css">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <style>
@@ -55,17 +56,14 @@
 <body>
   <h2>Event Calendar</h2>
 
-  <!-- 📅 Functional Calendar -->
   <div id="calendar"></div>
 
-  <!-- 📝 Manual Event Entry -->
   <form method="POST" action="/calendar/add">
     <input type="text" name="label" placeholder="Event label" required>
     <input type="date" name="date" required>
     <button type="submit">Add Event</button>
   </form>
 
-  <!-- 📃 Running Event List -->
   <h3>Event List</h3>
   <ul>
     {% for label, timestamp in events %}
@@ -84,6 +82,7 @@
           right: ''
         },
         events: '/events.json',
+        timeZone: 'local',
         eventDidMount: function(info) {
           const label = info.event.title.toLowerCase();
           if (label.includes('had sex')) info.el.style.backgroundColor = 'red';
@@ -95,12 +94,13 @@
       calendar.render();
     });
   </script>
+
   <div style="text-align:center; margin-top:40px;">
-  <form action="/" method="get">
-    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
-      Return Home
-    </button>
-  </form>
-</div>
+    <form action="/" method="get">
+      <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
+        Return Home
+      </button>
+    </form>
+  </div>
 </body>
 </html>
