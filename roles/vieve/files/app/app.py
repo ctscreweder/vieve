@@ -6,14 +6,13 @@ from werkzeug.utils import secure_filename
 
 app = Flask(
     __name__,
-    template_folder='/opt/vieve/templates',
-    static_folder='/opt/vieve/static'
+    template_folder='roles/vieve/files/app/templates',
+    static_folder='roles/vieve/files/app/static'
 )
 
-UPLOAD_FOLDER = '/opt/vieve/static/uploads'
-DB_PATH = '/opt/vieve/database.db'
+UPLOAD_FOLDER = 'roles/vieve/files/app/static/uploads'
+DB_PATH = 'roles/vieve/files/app/database.db'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def local_timestamp():
@@ -97,10 +96,7 @@ def events_json():
     c.execute("SELECT label, timestamp FROM events")
     rows = c.fetchall()
     conn.close()
-    events = [
-        {"title": label, "start": timestamp}
-        for label, timestamp in rows
-    ]
+    events = [{"title": label, "start": timestamp} for label, timestamp in rows]
     return jsonify(events)
 
 @app.route('/buttons', methods=['GET', 'POST'])
