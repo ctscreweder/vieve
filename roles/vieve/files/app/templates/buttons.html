@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Button Tracker</title>
+  <link rel="stylesheet" href="/static/style.css">
   <style>
-    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-    form { margin: 20px; }
-    button { margin: 10px; padding: 15px 30px; font-size: 18px; border: none; cursor: pointer; }
+    body { text-align: center; padding-top: 50px; }
+    button { font-size: 18px; padding: 15px 30px; border: none; cursor: pointer; }
     .red { background-color: red; color: white; }
     .blue { background-color: blue; color: white; }
     .yellow { background-color: yellow; color: black; }
@@ -18,12 +18,11 @@
     <button name="label" value="Date night" class="blue">Date night</button>
     <button name="label" value="Other" class="yellow">Other</button>
   </form>
-<div style="text-align:center; margin-top:40px;">
-  <form action="/" method="get">
-    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
-      Return Home
-    </button>
-  </form>
-</div>
+
+  <div style="text-align:center; margin-top:40px;">
+    <form action="/" method="get">
+      <button>Return Home</button>
+    </form>
+  </div>
 </body>
 </html>
