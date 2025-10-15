@@ -1,23 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Stats</title>
+  <title>Upload a Photo</title>
+  <link rel="stylesheet" href="/static/style.css">
   <style>
-    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-    h1, h2 { margin-bottom: 20px; }
-    .stat { font-size: 24px; margin: 10px 0; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .photo {
+      position: relative;
+    }
+    .photo img {
+      width: 100%;
+      height: auto;
+      border: 2px solid #444;
+    }
+    .delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .upload-form {
+      margin-top: 30px;
+    }
+    .return-home {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .return-home button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Vieve Stats</h1>
-  <div class="stat">Photos uploaded: {{ photo_count }}</div>
-  <div class="stat">Button presses: {{ event_count }}</div>
-<div style="text-align:center; margin-top:40px;">
-  <form action="/" method="get">
-    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
-      Return Home
-    </button>
+  <h1>Upload a Photo</h1>
+
+  <form method="POST" enctype="multipart/form-data" class="upload-form">
+    <input type="file" name="photo" required>
+    <button type="submit">Upload</button>
   </form>
-</div>
+
+  <h2>Recent Photos</h2>
+  <div class="gallery">
+    {% for photo in photos %}
+      <div class="photo">
+        <img src="/static/uploads/{{ photo[0] }}" alt="Photo">
+        <form method="GET" action="/delete/{{ photo[0] }}">
+          <button class="delete">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="return-home">
+    <form action="/" method="get">
+      <button>Return Home</button>
+    </form>
+  </div>
 </body>
 </html>
