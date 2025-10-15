@@ -1,20 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Photo Upload</title>
+  <title>Upload a Photo</title>
+  <link rel="stylesheet" href="/static/style.css">
   <style>
-    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; }
-    form { margin: 20px; }
-    input[type="file"], button { margin: 10px; padding: 10px; font-size: 16px; }
-    .gallery { display: grid; grid-template-columns: repeat(3, 600px); gap: 10px; justify-content: center; }
-    .photo { position: relative; }
-    img { width: 600px; height: auto; }
-    .delete { position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .photo {
+      position: relative;
+    }
+    .photo img {
+      width: 100%;
+      height: auto;
+      border: 2px solid #444;
+    }
+    .delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .upload-form {
+      margin-top: 30px;
+    }
+    .return-home {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .return-home button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Upload a Photo</h1>
-  <form method="POST" enctype="multipart/form-data">
+
+  <form method="POST" enctype="multipart/form-data" class="upload-form">
     <input type="file" name="photo" required>
     <button type="submit">Upload</button>
   </form>
@@ -30,12 +65,11 @@
       </div>
     {% endfor %}
   </div>
-<div style="text-align:center; margin-top:40px;">
-  <form action="/" method="get">
-    <button style="padding:10px 20px; font-size:16px; background-color:#333; color:white; border:none; cursor:pointer;">
-      Return Home
-    </button>
-  </form>
-</div>
+
+  <div class="return-home">
+    <form action="/" method="get">
+      <button>Return Home</button>
+    </form>
+  </div>
 </body>
 </html>
