@@ -2,15 +2,17 @@
 <html>
 <head>
   <title>Vieve Home</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    button { margin: 10px; padding: 15px 30px; font-size: 18px; background-color: #333; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #555; }
+  </style>
 </head>
 <body>
   <h1>Welcome to Vieve</h1>
-  <ul>
-    <li><a href="/upload">Upload Photos</a></li>
-    <li><a href="/calendar">View Calendar</a></li>
-    <li><a href="/buttons">Button Tracker</a></li>
-    <li><a href="/stats">Stats</a></li>
-  </ul>
+  <button onclick="location.href='/upload'">Photo Upload</button>
+  <button onclick="location.href='/calendar'">Calendar</button>
+  <button onclick="location.href='/buttons'">Button Tracker</button>
+  <button onclick="location.href='/stats'">Stats</button>
 </body>
 </html>
