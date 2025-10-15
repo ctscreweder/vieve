@@ -2,24 +2,20 @@ body {
   background-color: black;
   color: white;
   font-family: Arial, sans-serif;
-  margin: 20px;
 }
-
-a {
-  color: #00ffff;
-}
-
-input, button, select, textarea {
-  background-color: #222;
+button {
+  background-color: #444;
   color: white;
-  border: 1px solid #555;
-  padding: 5px;
+  padding: 10px;
+  margin: 5px;
 }
-
 img {
-  border: 2px solid #444;
+  width: 600px;
+  height: auto;
+  margin: 5px;
 }
-
-h1, h2 {
-  text-align: center;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
